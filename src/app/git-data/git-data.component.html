@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="jumbotron">
+        <h2><b><mark>Information</mark></b></h2>
+            <div class="form-group">
+                <label for="org">Organisation Name:</label>
+                <input type="org" class="form-control" id="org" [(ngModel)]="organisation" placeholder="Enter " name="org">
+            </div><br>
+            <div class="form-group">
+                <label for="repo">Repository Name:</label>
+                <input type="repo" class="form-control" id="repo" [(ngModel)]="repo" placeholder="Enter " name="repo">
+            </div><br>
+            <button type="submit" class="btn btn-primary" (click)="submit()" >Submit</button>
+    </div>
+</div>
+<div  *ngIf="gitData && gitData.length > 0">
+<h3 class="first" >Pull Requests for selected Organisation is {{organisation}} and repo is {{repo}} are showing below</h3>
+<p-table [columns]="cols" [value]="gitData" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
